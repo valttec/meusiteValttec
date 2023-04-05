@@ -1,0 +1,148 @@
+﻿<!doctype html>
+<html lang="pt-br">
+  <head>
+ 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Criado por valter da silva barros -->
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<link rel="icon" type="imagem/png" href="iconeTopo.png" />
+    <title>Enviar orçamento</title>
+	<style>
+	body{
+		background: blue;
+
+	position: relative;
+    height: 100vh;
+    width: 100vw;
+    /* adicionando imagem de fundo */
+    background: url('fundo.jpg');
+    background-size: cover;
+	
+	}
+	h1,h2{
+	
+	color: orange;
+	}
+	
+	
+	</style>
+		
+  </head>
+  <body onload="time()" >
+   <div class="container">
+   
+	 <div class="row">
+		<div class="col-3">
+			<h1 id = "hora" class="ms-2"></h1>
+			<h2 id="compr"></h2>
+			<form action="">
+			<div class="form-floating mb-3">
+			  <input type="text" class="form-control" id="atendente" placeholder="Atendente*">
+			  <label for="atendente">Atendente*</label>
+			</div>
+		
+						<div class="d-grid gap-2 mt-2">
+						  <a class="btn btn btn btn-dark" href="index.html" type="button" title="Enviar orçamento">Enviar orçamento</a>
+						</div>
+	
+			</div>
+				<div class="col-6">
+				
+					
+						<div class="form-floating mb-2 mt-3" >
+						  <input type="number" class="form-control" id="numero" placeholder="Digite numero com DDD*">
+						  <label for="numero">Digite numero com DDD*</label>
+						</div>
+						<div class="row">
+								<div class="col-6">
+							<div class="form-floating mb-3">
+							  <input type="text" class="form-control" id="client" placeholder="Nome Cliente">
+							  <label for="client">Nome Cliente</label>
+							</div>
+							</div>
+							<div class="col-6">
+								<div class="form-floating mb-3">
+								  <input type="number" class="form-control" id="os" placeholder="Nº OS">
+								  <label for="os">Nº OS</label>
+								</div>
+							</div>
+						
+						</div>
+						
+					
+						
+						<div class="d-grid gap-2 mt-2">
+						  <button class="btn btn-success" type="button" onclick="generateLink()" title="Enviar orçamento">Enviar</button>
+						  <button class="btn btn-danger" type="button" onclick="limpa()" title="Enviar orçamento">Limpa campos</button>
+						 
+						</div>
+					
+					</form>
+				
+				</div>
+			<div class="col-3">
+			
+		</div>
+	</div>
+   
+   </div>
+
+
+	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  	<script type="text/javascript">
+	let comp;
+function time()
+{
+today=new Date();
+h=today.getHours();
+m=today.getMinutes();
+s=today.getSeconds();
+
+document.getElementById('hora').innerHTML=h+":"+m+":"+s;
+setTimeout('time()',500);
+
+if(h >= 6 && h <=11){
+ comp = "Bom dia";
+}
+if(h >= 12 && h <=17){
+ comp = "Boa tarde";
+}
+if(h >= 18){
+ comp = "Boa Noite";
+}
+
+document.getElementById('compr').innerHTML= comp;
+}
+
+function generateLink() {
+  let fone = document.getElementById('numero').value;
+  let atendente = document.getElementById('atendente').value;
+  let nomeCliente = document.getElementById('client').value;
+  let numerOS = document.getElementById('os').value;
+ 
+ 
+  let texto = comp+" senhor(a) "+nomeCliente+", me chamo "+atendente+" e falo da *AstecByte assistência técnica*, passando para informar que o equipamento da *Ordem de serviço Nº "+numerOS+"* esta pronto.";
+  
+   texto = window.encodeURIComponent(texto);
+   if(fone != "" && atendente != ""){
+   window.open("https://api.whatsapp.com/send?phone=55" + fone + "&text=" + texto, "_blank");
+   }else{
+	alert("Preencha os campos obrigatórios *");
+   }
+
+}
+
+function limpa(){
+document.getElementById('numero').value ="";
+document.getElementById('client').value ="";
+document.getElementById('os').value ="";
+}
+
+
+</script>
+  
+  </body>
+</html>
